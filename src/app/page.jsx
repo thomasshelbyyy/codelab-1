@@ -1,7 +1,25 @@
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
+import addData from "@/libs/firebase/firestore/addData";
 
 export default function Home() {
+
+  const handleForm = async () => {
+    const data = {
+      name: "John Snow",
+      house: "Stark"
+    }
+
+    const { error, result } = await addData("users", "user-id", data)
+
+    if (error) {
+      console.log(error)
+    } else {
+      alert("succeed")
+    }
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -40,6 +58,7 @@ export default function Home() {
       </div>
 
       <div className={styles.grid}>
+        <button onClick={handleForm}>ADD DATA</button>
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
           className={styles.card}
